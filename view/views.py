@@ -6,4 +6,4 @@ class Overview(View):
     template_name = "overview.html"
     
     def get(self, request):
-        return render(request, template_name, {})    
+        return render(request, self.template_name, {})    
