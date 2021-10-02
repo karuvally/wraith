@@ -1,7 +1,11 @@
 # wraith
-Window to your computer and the network
+Everything I ever wanted a webapp to do
 
 ## Ideas
-- Show hosts with highest amount of network activity
-- Show never before seen hosts
-- Ability to block hosts
+- Network map
+    - Show hosts with highest amount of network activity
+    - Show never before seen hosts
+    - Ability to block hosts
+- Photo Gallery 
+- Music browser and player
+- Simple solutions for stuff that requires third-party app 
