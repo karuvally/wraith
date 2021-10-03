@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from django.views import View
-from django.http import HttpResponse
 
 # Create your views here.
 class HomeView(View):
+    template_name="home.html"
     def get(self, request):
-        return HttpResponse("This works!")
+        return render(request, self.template_name, {})
