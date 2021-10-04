@@ -9,3 +9,12 @@ Everything I ever wanted a webapp to do
 - Photo Gallery 
 - Music browser and player
 - Simple solutions for stuff that requires third-party app 
+- PDF tools
+    - Convert PDF to image
+    - Add page numbers to PDF
+    - Manipulate PDF
+
+## Requirements
+- [Django](https://www.djangoproject.com)
+- [pdf2image](https://github.com/Belval/pdf2image)
+
