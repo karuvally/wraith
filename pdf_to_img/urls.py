@@ -1,6 +1,7 @@
 from django.urls import path, include
+from .views import UploadPDF
 
 app_name = "pdf_to_img"
 urlpatterns = [
-    path('upload/', "upload_pdf.html", name="upload_pdf"),
+    path('upload/', UploadPDF.as_view(), name="upload_pdf"),
 ]
