@@ -1,5 +1,8 @@
 {% extends "base.html" %}
 
 {% block content %}
-This is supposed to upload PDF files
+<form action="upload_pdf.html" method="post">
+    <input type="file" id="pdf_file" name="pdf_file">
+    <input type="submit">
+</form>
 {% endblock %}
