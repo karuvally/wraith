@@ -20,4 +20,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('login.urls')),
     path('map/', include('map.urls')),
+    path('pdf_to_img/', include('pdf_to_img.urls')),
 ]
