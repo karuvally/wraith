@@ -1,3 +1,5 @@
+import string
+import random
 from django.shortcuts import render
 from django.views import View
 from django.http import HttpResponse
@@ -10,5 +12,6 @@ class UploadPDF(View):
     def post(self, request):
         if not request.FILES:
             return HttpResponse("Not a valid file...")
+        tmpfile = f"{''.join(random.choices(string.ascii_letters, k=10))}.pdf"
         request.session["pdf_upload"] = request.FILES["pdf_file"]
         return render(request, "configuration.html", {})
