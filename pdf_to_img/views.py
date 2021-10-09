@@ -13,6 +13,9 @@ class UploadPDF(View):
     def post(self, request):
         if not request.FILES:
             return HttpResponse("Not a valid file...")
+        # Create directory for storing temporary files
+        if not os.path.isdir(os.path.join("pdf_to_img", "tmp")):
+            os.mkdir(os.path.join("pdf_to_img", "tmp"))
         # Save uploaded file with temporary name
         fname = f"{''.join(random.choices(string.ascii_letters, k=10))}.pdf"
         with open(os.path.join("pdf_to_img", fname), "wb") as tmp_file:
