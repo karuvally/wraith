@@ -10,16 +10,23 @@ class UploadPDF(View):
     def get(self, request):
         return render(request, "upload_pdf.html", {})
 
+    # TODO
+    # Verify if uploaded file is PDF
     def post(self, request):
+        """Deal with uploaded PDF file"""
         if not request.FILES:
             return HttpResponse("Not a valid file...")
+
         # Create directory for storing temporary files
         if not os.path.isdir(os.path.join("pdf_to_img", "tmp")):
             os.mkdir(os.path.join("pdf_to_img", "tmp"))
+
         # Save uploaded file with temporary name
         fname = f"{''.join(random.choices(string.ascii_letters, k=10))}.pdf"
-        with open(os.path.join("pdf_to_img", fname), "wb") as tmp_file:
+        with open(os.path.join("pdf_to_img", tmp, fname), "wb") as tmp_file:
             for chunk in request.FILES["pdf_file"].chunks():
                 tmp_file.write(chunk)
         request.session["pdf_file"] = fname
-        return render(request, "configuration.html", {})
+
+        # Redirect user to the next page
+        return render(request, "convert.html", {})
