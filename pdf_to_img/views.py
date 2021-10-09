@@ -5,7 +5,6 @@ from django.shortcuts import render
 from django.views import View
 from django.http import HttpResponse
 
-# Create your views here.
 class UploadPDF(View):
     def get(self, request):
         return render(request, "upload_pdf.html", {})
@@ -30,3 +29,7 @@ class UploadPDF(View):
 
         # Redirect user to the next page
         return render(request, "convert.html", {})
+
+class ConvertPDF(View):
+    def post(self, request):
+        pass
