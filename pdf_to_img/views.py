@@ -4,6 +4,12 @@ import os
 from django.shortcuts import render
 from django.views import View
 from django.http import HttpResponse
+from pdf2image import convert_from_path
+from pdf2image.exceptions import(
+    PDFInfoNotInstalledError,
+    PDFPageCountError,
+    PDFSyntaxError
+)
 
 class UploadPDF(View):
     def get(self, request):
