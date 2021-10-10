@@ -1,5 +1,19 @@
 {% extends "base.html" %}
 
 {% block content %}
-It works!
+<form method="post">
+    <input type="radio" id="jpg" name="format" value="JPEG">
+    <label for="jpg">JPEG</label><br>
+
+    <input type="radio" id="ppm" name="format" value="PPM">
+    <label for="ppm">PPM</label><br>
+
+    <input type="radio" id="png" name="format" value="PNG">
+    <label for="png">PNG</label><br>
+
+    <input type="radio" id="tiff" name="format" value="TIFF">
+    <label for="tiff">TIFF</label><br>
+    
+    <input type="submit" value="Convert">
+</form>
 {% endblock %}
