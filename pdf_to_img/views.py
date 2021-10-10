@@ -11,6 +11,8 @@ from pdf2image.exceptions import(
     PDFSyntaxError
 )
 
+import pdb
+
 class UploadPDF(View):
     def get(self, request):
         return render(request, "upload_pdf.html", {})
@@ -36,6 +38,7 @@ class UploadPDF(View):
             for chunk in request.FILES["pdf_file"].chunks():
                 tmp_file.write(chunk)
         request.session["pdf_file"] = fname
+        request.session["pdf_name"] = request.FILES["pdf_file"].name
 
         # Redirect user to the next page
         return render(request, "convert.html", {})
