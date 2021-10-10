@@ -21,8 +21,12 @@ class UploadPDF(View):
             os.mkdir(os.path.join("pdf_to_img", "tmp"))
 
         # Save uploaded file with temporary name
-        fname = f"{''.join(random.choices(string.ascii_letters, k=10))}.pdf"
-        with open(os.path.join("pdf_to_img", "tmp", fname), "wb") as tmp_file:
+        fname = os.path.join(
+            "pdf_to_img",
+            "tmp",
+            f"{''.join(random.choices(string.ascii_letters, k=10))}.pdf"
+        )
+        with open(fname, "wb") as tmp_file:
             for chunk in request.FILES["pdf_file"].chunks():
                 tmp_file.write(chunk)
         request.session["pdf_file"] = fname
