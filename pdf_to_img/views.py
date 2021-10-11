@@ -3,7 +3,7 @@ import random
 import os
 import pdb
 
-from django.shortcuts import render
+from django.shortcuts import render, resolve_url, redirect
 from django.views import View
 from django.http import HttpResponse
 
@@ -44,7 +44,7 @@ class UploadPDF(View):
         request.session["pdf_name"] = request.FILES["pdf_file"].name
 
         # Redirect user to the next page
-        return render(request, "convert.html", {})
+        return redirect(resolve_url("pdf_to_img:convert_pdf"))
 
 class ConvertPDF(View):
     def post(self, request):
