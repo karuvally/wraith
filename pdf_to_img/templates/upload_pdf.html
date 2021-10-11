@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-<form method="post" enctype="multipart/form-data">
+<form method="post" enctype="multipart/form-data" action="{% url 'pdf_to_img:upload_pdf' %}">
     {% csrf_token %}
     <input type="file" id="pdf_file" name="pdf_file">
     <input type="submit">
