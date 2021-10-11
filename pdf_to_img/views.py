@@ -1,9 +1,11 @@
 import string
 import random
 import os
+
 from django.shortcuts import render
 from django.views import View
 from django.http import HttpResponse
+
 from pdf2image import convert_from_path
 from pdf2image.exceptions import(
     PDFInfoNotInstalledError,
@@ -11,15 +13,14 @@ from pdf2image.exceptions import(
     PDFSyntaxError
 )
 
-import pdb
+# TODO
+# Verify if uploaded file is PDF
+# Delete tmp dirs not part of any sessions
 
 class UploadPDF(View):
     def get(self, request):
         return render(request, "upload_pdf.html", {})
 
-    # TODO
-    # Verify if uploaded file is PDF
-    # Delete tmp dirs not part of any sessions
     def post(self, request):
         """Deal with uploaded PDF file"""
         if not request.FILES:
@@ -29,8 +30,7 @@ class UploadPDF(View):
         if not os.path.isdir(os.path.join("pdf_to_img", "tmp")):
             os.mkdir(os.path.join("pdf_to_img", "tmp"))
         tmp_dir = os.path.join(
-            "pdf_to_img",
-            "tmp",
+            "pdf_to_img", "tmp",
             "".join(random.choices(string.ascii_letters, k=10))
         )
         os.mkdir(tmp_dir)
