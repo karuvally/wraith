@@ -40,7 +40,6 @@ class UploadPDF(View):
         with open(os.path.join(tmp_dir, "upload.pdf"), "wb") as pdf_file:
             for chunk in request.FILES["pdf_file"].chunks():
                 pdf_file.write(chunk)
-        request.session["pdf_file"] = os.path.join(tmp_dir, "upload.pdf")
         request.session["pdf_name"] = request.FILES["pdf_file"].name
 
         # Redirect user to the next page
