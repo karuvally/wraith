@@ -19,6 +19,7 @@ class UploadPDF(View):
 
     # TODO
     # Verify if uploaded file is PDF
+    # Delete tmp dirs not part of any sessions
     def post(self, request):
         """Deal with uploaded PDF file"""
         if not request.FILES:
@@ -27,7 +28,14 @@ class UploadPDF(View):
         # Create directory for storing temporary files
         if not os.path.isdir(os.path.join("pdf_to_img", "tmp")):
             os.mkdir(os.path.join("pdf_to_img", "tmp"))
-
+        tmp_dir = os.path.join(
+            "pdf_to_img",
+            "tmp",
+            "".join(random.choices(string.ascii_letters, k=10))
+        )
+        os.mkdir(tmp_dir)
+        request.session["tmp_dir"] = tmp_dir
+        
         # Save uploaded file with temporary name
         fname = os.path.join(
             "pdf_to_img",
