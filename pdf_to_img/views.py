@@ -36,16 +36,11 @@ class UploadPDF(View):
         os.mkdir(tmp_dir)
         request.session["tmp_dir"] = tmp_dir
         
-        # Save uploaded file with temporary name
-        fname = os.path.join(
-            "pdf_to_img",
-            "tmp",
-            f"{''.join(random.choices(string.ascii_letters, k=10))}.pdf"
-        )
-        with open(fname, "wb") as tmp_file:
+        # Save uploaded file inside tmp dir
+        with open(os.path.join(tmp_dir, "upload.pdf"), "wb") as pdf_file:
             for chunk in request.FILES["pdf_file"].chunks():
-                tmp_file.write(chunk)
-        request.session["pdf_file"] = fname
+                pdf_file.write(chunk)
+        request.session["pdf_file"] = os.path.join(tmp_dir, "upload.pdf")
         request.session["pdf_name"] = request.FILES["pdf_file"].name
 
         # Redirect user to the next page
