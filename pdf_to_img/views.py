@@ -17,6 +17,7 @@ from pdf2image.exceptions import(
 # TODO
 # Verify if uploaded file is PDF
 # Delete tmp dirs not part of any sessions
+# Use UUID instead of random tmp dir name
 
 class UploadPDF(View):
     def get(self, request):
@@ -47,5 +48,16 @@ class UploadPDF(View):
         return redirect(resolve_url("pdf_to_img:convert_pdf"))
 
 class ConvertPDF(View):
+    def get(self, request):
+        return render(request, "convert.html", {})
+    
     def post(self, request):
-        pdb.set_trace() # debug
+        format = request.POST["format"]
+        pdf_name = request.session["pdf_name"]
+        convert_from_path(
+            pdf_path=os.path.join(request.session["tmp_dir"], "upload.pdf"),
+            output_file=pdf_name[:pdf_name.index(".pdf")],
+            output_folder=request.session["tmp_dir"],
+            fmt=format,
+        )
+        return HttpResponse("<h1>ശുഭം!</h1>") # debug
