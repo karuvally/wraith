@@ -1,6 +1,7 @@
 import string
 import random
 import os
+import pdb
 
 from django.shortcuts import render
 from django.views import View
@@ -47,4 +48,4 @@ class UploadPDF(View):
 
 class ConvertPDF(View):
     def post(self, request):
-        pass
+        pdb.set_trace() # debug
