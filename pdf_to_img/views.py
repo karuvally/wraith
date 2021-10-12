@@ -18,6 +18,7 @@ from pdf2image.exceptions import(
 # Verify if uploaded file is PDF
 # Delete tmp dirs not part of any sessions
 # Use UUID instead of random tmp dir name
+# Enable handing of exceptions
 
 class UploadPDF(View):
     def get(self, request):
