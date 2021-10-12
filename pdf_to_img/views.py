@@ -1,7 +1,7 @@
 import string
 import random
 import os
-import pdb
+import shutil
 
 from django.shortcuts import render, resolve_url, redirect
 from django.views import View
@@ -13,6 +13,8 @@ from pdf2image.exceptions import(
     PDFPageCountError,
     PDFSyntaxError
 )
+
+import pdb # debug
 
 # TODO
 # Verify if uploaded file is PDF
@@ -53,6 +55,7 @@ class ConvertPDF(View):
         return render(request, "convert.html", {})
     
     def post(self, request):
+        # Convert PDF
         format = request.POST["format"]
         pdf_name = request.session["pdf_name"]
         convert_from_path(
@@ -60,5 +63,13 @@ class ConvertPDF(View):
             output_file=pdf_name[:pdf_name.index(".pdf")],
             output_folder=request.session["tmp_dir"],
             fmt=format,
+        )
+        
+        # Archive the converted files and return to user
+        os.remove(os.path.join(request.session["tmp_dir"], "upload.pdf"))
+        shutil.make_archive(
+            base_name=request.session["tmp_dir"],
+            format="zip",
+            base_dir=request.session["tmp_dir"]
         )
         return HttpResponse("<h1>ശുഭം!</h1>") # debug
