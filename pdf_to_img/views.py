@@ -2,6 +2,7 @@ import string
 import random
 import os
 import shutil
+import pathlib
 
 from django.shortcuts import render, resolve_url, redirect
 from django.views import View
@@ -70,6 +71,7 @@ class ConvertPDF(View):
         shutil.make_archive(
             base_name=request.session["tmp_dir"],
             format="zip",
-            base_dir=request.session["tmp_dir"]
+            root_dir=pathlib.Path(request.session["tmp_dir"]).parent,
+            base_dir=os.path.basename(request.session["tmp_dir"])
         )
         return HttpResponse("<h1>ശുഭം!</h1>") # debug
