@@ -3,6 +3,7 @@ import random
 import os
 import shutil
 import pathlib
+import mimetypes
 
 from django.shortcuts import render, resolve_url, redirect
 from django.views import View
@@ -59,19 +60,29 @@ class ConvertPDF(View):
         # Convert PDF
         format = request.POST["format"]
         pdf_name = request.session["pdf_name"]
+        tmp_dir = request.session["tmp_dir"]
         convert_from_path(
-            pdf_path=os.path.join(request.session["tmp_dir"], "upload.pdf"),
+            pdf_path=os.path.join(tmp_dir, "upload.pdf"),
             output_file=pdf_name[:pdf_name.index(".pdf")],
-            output_folder=request.session["tmp_dir"],
+            output_folder=tmp_dir,
             fmt=format,
         )
         
-        # Archive the converted files and return to user
-        os.remove(os.path.join(request.session["tmp_dir"], "upload.pdf"))
+        # Archive the converted files
+        os.remove(os.path.join(tmp_dir, "upload.pdf"))
         shutil.make_archive(
-            base_name=request.session["tmp_dir"],
+            base_name=tmp_dir,
             format="zip",
-            root_dir=pathlib.Path(request.session["tmp_dir"]).parent,
-            base_dir=os.path.basename(request.session["tmp_dir"])
+            root_dir=pathlib.Path(tmp_dir).parent,
+            base_dir=os.path.basename(tmp_dir)
         )
-        return HttpResponse("<h1>ശുഭം!</h1>") # debug
+        
+        # Return the archive to user
+        response = HttpResponse(
+            open(f"{tmp_dir}.zip", "rb"),
+            content_type=mimetypes.guess_type(f"{tmp_dir}.zip"),
+            headers={
+                "Content-Disposition": f"attachment; filename={pdf_name}.zip"
+            }
+        )
+        return response
