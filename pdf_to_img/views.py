@@ -76,6 +76,7 @@ class ConvertPDF(View):
             root_dir=pathlib.Path(tmp_dir).parent,
             base_dir=os.path.basename(tmp_dir)
         )
+        shutil.rmtree(tmp_dir)
         
         # Return the archive to user
         response = HttpResponse(
