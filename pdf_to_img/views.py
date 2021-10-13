@@ -23,6 +23,7 @@ import pdb # debug
 # Delete tmp dirs not part of any sessions
 # Use UUID instead of random tmp dir name
 # Enable handing of exceptions
+# Redirect user to homepage after returning converted files
 
 class UploadPDF(View):
     def get(self, request):
@@ -79,11 +80,10 @@ class ConvertPDF(View):
         shutil.rmtree(tmp_dir)
         
         # Return the archive to user
-        response = HttpResponse(
+        return HttpResponse(
             open(f"{tmp_dir}.zip", "rb"),
             content_type=mimetypes.guess_type(f"{tmp_dir}.zip"),
             headers={
                 "Content-Disposition": f"attachment; filename={pdf_name}.zip"
             }
         )
-        return response
