@@ -3,7 +3,9 @@
 {% block content %}
 <form method="post" enctype="multipart/form-data" action="{% url 'pdf_to_img:upload_pdf' %}">
     {% csrf_token %}
-    <input type="file" id="pdf_file" name="pdf_file">
-    <input type="submit">
+    <div class="mb-3">
+        <input class="form-control" type="file" id="pdf_file" name="pdf_file">
+        <input type="submit">
+    </div>
 </form>
 {% endblock %}
