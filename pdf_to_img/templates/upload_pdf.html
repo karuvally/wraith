@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block content %}
-<form class="form-group" method="post" enctype="multipart/form-data" action="{% url 'pdf_to_img:upload_pdf' %}">
+<form class="form-group container" method="post" enctype="multipart/form-data" action="{% url 'pdf_to_img:upload_pdf' %}">
     {% csrf_token %}
     <input class="mb-2 form-control" type="file" id="pdf_file" name="pdf_file">
     <input class="btn btn-primary" type="submit">
