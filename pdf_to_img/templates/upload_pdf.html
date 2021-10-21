@@ -1,11 +1,15 @@
 {% extends "base.html" %}
 
 {% block extra_css %}
-
+<style>
+.form-upload {
+    width: 27%;
+}
+</style>
 {% endblock %}
 
 {% block content %}
-<form class="form-group container" method="post" enctype="multipart/form-data" action="{% url 'pdf_to_img:upload_pdf' %}">
+<form class="form-upload container d-flex flex-column min-vh-100 justify-content-center" method="post" enctype="multipart/form-data" action="{% url 'pdf_to_img:upload_pdf' %}">
     {% csrf_token %}
     <input class="mb-2 form-control" type="file" id="pdf_file" name="pdf_file">
     <input class="btn btn-primary" type="submit">
